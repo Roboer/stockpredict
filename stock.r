@@ -1,6 +1,7 @@
 library(xts)
 
 company <- read.table("company_data.csv",sep='|')
+updown <- read.table("God_File.csv",sep='')
 
 t = with(company, as.POSIXct(V4) )
 company$pTime = t
@@ -35,4 +36,8 @@ c3q3.xts <- as.xts(c3.q3$V7,order.by=c3.q3$pTime)
 c3q4.xts <- as.xts(c3.q4$V7,order.by=c3.q4$pTime)
 c3q5.xts <- as.xts(c3.q5$V7,order.by=c3.q5$pTime)
 c3q6.xts <- as.xts(c3.q6$V7,order.by=c3.q6$pTime)
+
+##########6个季度都数据转置后组成矩阵X############
+x <- rbind(t(c3.q1$V7),t(c3.q2$V7[1:105]),t(c3.q3$V7[1:105]),t(c3.q4$V7[1:105]),t(c3.q5$V7[1:105]),t(c3.q6$V7[1:105]))
+y <- c(0,-2,-2,-1,-1,1,0)
 
